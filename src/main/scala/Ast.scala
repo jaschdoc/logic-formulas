@@ -8,18 +8,23 @@ object Ast {
 
   sealed trait Exp extends AstNode
 
-  sealed trait UnOpExp extends Exp
+  sealed trait UnOp extends AstNode
 
-  sealed trait BinOpExp extends Exp
+  case object Not extends UnOp
+
+  sealed trait BinOp extends AstNode
+
+  case object And extends BinOp
+
+  case object Or extends BinOp
+
+  case object Implication extends BinOp
 
 
   case class AtomExp(p: Id) extends Exp
 
-  case class NotExp(p: Exp) extends UnOpExp
+  case class UnOpExp(op: UnOp, p: Exp)
 
-  case class AndExp(p: Exp, q: Exp) extends BinOpExp
+  case class BinOpExp(p: Exp, op: BinOp, q: Exp)
 
-  case class OrExp(p: Exp, q: Exp) extends BinOpExp
-
-  case class ImplicationExp(p: Exp, q: Exp) extends BinOpExp
 }

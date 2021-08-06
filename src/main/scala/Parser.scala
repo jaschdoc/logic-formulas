@@ -8,10 +8,8 @@ import scala.util.parsing.combinator.Parsers
 // Grammar
 // Symbols in backticks are terminals / literals
 // ###################################################################
-// Exp      ::= Atom | UnOpExp | BinOpExp | (Exp)
+// Exp      ::= Atom | UnOp Exp | Exp BinOp Exp | (Exp)
 // Atom     ::= [a-z]
-// UnOpExp  ::= UnOp Exp
-// BinOpExp ::= Exp BinOp Exp
 // UnOp     ::= `not`
 // BinOp    ::= `and` | `or` | `->`
 // ###################################################################
