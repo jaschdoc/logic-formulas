@@ -1,11 +1,11 @@
 package io.jaschdoc
 package syntax
 
+import Ast._
 import syntax.Tokens._
 
-import io.jaschdoc.Ast.{AndBinOp, AtomExp, BinOp, BinOpExp, Exp, ImplicationBinOp, NotUnOp, OrBinOp, UnOp, UnOpExp}
-
 import scala.util.parsing.combinator.Parsers
+import scala.util.parsing.input.{NoPosition, Position, Reader}
 
 object Parser extends Parsers {
 
@@ -68,5 +68,15 @@ object Parser extends Parsers {
 
   case class FormulaParserError(msg: String) extends FormulaCompilationError(msg)
 
+
+  class LogicTokenReader(tokens: Seq[LogicToken]) extends Reader[LogicToken] {
+    override def first: LogicToken = tokens.head
+
+    override def rest: Reader[LogicToken] = new LogicTokenReader(tokens.tail)
+
+    override def pos: Position = NoPosition
+
+    override def atEnd: Boolean = tokens.isEmpty
+  }
 
 }
