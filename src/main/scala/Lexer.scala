@@ -17,6 +17,9 @@ import scala.util.parsing.combinator.RegexParsers
 // 3. Binary Operator `implies` (right associative)
 
 object Lexer extends RegexParsers {
+  override def skipWhitespace: Boolean = true
+
+  val keywords = Set("not", "and", "or", "->")
 
 
 }
