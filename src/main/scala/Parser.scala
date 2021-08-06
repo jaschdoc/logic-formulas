@@ -1,6 +1,6 @@
 package io.jaschdoc
 
-import Tokens.LogicToken
+import Tokens.{IDENTIFIER, LogicToken}
 
 import scala.util.parsing.combinator.Parsers
 
@@ -22,5 +22,10 @@ import scala.util.parsing.combinator.Parsers
 object Parser extends Parsers {
 
   override type Elem = LogicToken
+
+  private def identifier: Parser[IDENTIFIER] = {
+    accept("identifier", { case id: IDENTIFIER => id })
+  }
+
 
 }
