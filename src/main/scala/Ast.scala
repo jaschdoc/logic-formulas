@@ -25,8 +25,8 @@ object Ast {
 
   case class AtomExp(p: Id) extends Exp
 
-  case class UnOpExp(op: UnOp, p: Exp)
+  case class UnOpExp(op: UnOp, p: Exp) extends Exp
 
-  case class BinOpExp(p: Exp, op: BinOp, q: Exp)
+  case class BinOpExp(p: Exp, op: BinOp, q: Exp) extends Exp
 
 }
