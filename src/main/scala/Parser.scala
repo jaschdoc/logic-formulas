@@ -10,8 +10,10 @@ import scala.util.parsing.combinator.Parsers
 // ###################################################################
 // Exp      ::= Atom | UnOpExp | BinOpExp | (Exp)
 // Atom     ::= [a-z]
-// UnOpExp  ::= `not` Exp
-// BinOpExp ::= Exp `and` Exp | Exp `or` Exp | Exp `implies` Exp
+// UnOpExp  ::= UnOp Exp
+// BinOpExp ::= Exp BinOp Exp
+// UnOp     ::= `not`
+// BinOp    ::= `and` | `or` | `->`
 // ###################################################################
 // Operator precedence (from strongest to weakest)
 // 1. Unary operator `not` binds the strongest
@@ -27,5 +29,6 @@ object Parser extends Parsers {
     accept("identifier", { case id: IDENTIFIER => id })
   }
 
+  def
 
 }
