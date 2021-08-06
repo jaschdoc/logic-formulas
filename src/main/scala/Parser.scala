@@ -24,6 +24,10 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
+  private def expression: Parser[Exp] = phrase {
+    unopexp | binopexp | parenexp | atomexp
+  }
+
   private lazy val identifier: Parser[IDENTIFIER] = {
     accept("identifier", { case id: IDENTIFIER => id })
   }
@@ -40,6 +44,8 @@ object Parser extends Parsers {
 
   private lazy val binop: Parser[BinOp] = and | or | implication
 
-
-
+  private lazy val unopexp: Parser[Exp] = ???
+  private lazy val binopexp: Parser[Exp] = ???
+  private lazy val parenexp: Parser[Exp] = ???
+  private lazy val atomexp: Parser[Exp] = ???
 }
