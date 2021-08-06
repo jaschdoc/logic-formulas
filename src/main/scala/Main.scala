@@ -2,12 +2,9 @@ package io.jaschdoc
 
 
 object Main extends App {
-
-
-  val formula = "p and q -> f"
-  val malformedFormula = "p and q <_ f"
-  println(Lexer(formula))
-  println(Lexer(malformedFormula))
-
+  val input = "(a and b)"
+  val program = Parser.parse(Lexer.on(input))
+  println(program)
+  // val result = Interpreter.eval(program, Environment.from(program))
 }
 

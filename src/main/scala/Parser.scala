@@ -24,7 +24,19 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
-  lazy val expression: Parser[Exp] = phrase {
+  def parse(tokens: Seq[LogicToken]): Exp = apply(tokens)
+
+  def apply(tokens: Seq[LogicToken]): Exp = {
+    val reader = new LogicTokenReader(tokens)
+    program(reader) match {
+      case NoSuccess(msg, _) => throw FormulaParserError(msg)
+      case Success(result, _) => result
+    }
+  }
+
+  private lazy val program: Parser[Exp] = expression
+
+  private lazy val expression: Parser[Exp] = phrase {
     unopexp | binopexp | parenexp | atomexp
   }
 
@@ -51,4 +63,8 @@ object Parser extends Parsers {
   private lazy val parenexp: Parser[Exp] = (LEFT_PAREN ~ expression ~ RIGHT_PAREN) ^^ { case _ ~ exp ~ _ => exp }
 
   private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
+
+  case class FormulaParserError(msg: String) extends FormulaCompilationError(msg)
+
+
 }

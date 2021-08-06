@@ -11,11 +11,12 @@ object Lexer extends RegexParsers {
 
   override val whiteSpace: Regex = """[ \t\r\f\n]""".r
 
+  def on(code: String): List[LogicToken] = apply(code)
 
-  def apply(code: String): Either[FormulaLexerError, List[LogicToken]] = {
+  def apply(code: String): List[LogicToken] = {
     parse(tokens, code) match {
-      case NoSuccess(msg, _) => Left(FormulaLexerError(msg))
-      case Success(result, _) => Right(result)
+      case NoSuccess(msg, _) => throw FormulaLexerError(msg)
+      case Success(result, _) => result
     }
   }
 
