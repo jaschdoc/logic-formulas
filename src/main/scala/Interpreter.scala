@@ -12,15 +12,15 @@ object Interpreter {
     case UnOpExp(op, p) =>
       val p1 = eval(p, env)
       op match {
-        case Not => !p1
+        case NotUnOp => !p1
       }
     case BinOpExp(p, op, q) =>
       val p1 = eval(p, env)
       val q1 = eval(q, env)
       op match {
-        case And => p1 && q1
-        case Or => p1 || q1
-        case Implication => !p1 || q1
+        case AndBinOp => p1 && q1
+        case OrBinOp => p1 || q1
+        case ImplicationBinOp => !p1 || q1
       }
   }
 

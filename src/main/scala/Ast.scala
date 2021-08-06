@@ -11,16 +11,16 @@ object Ast {
 
   sealed trait UnOp extends AstNode
 
-  case object Not extends UnOp
+  case object NotUnOp extends UnOp
 
 
   sealed trait BinOp extends AstNode
 
-  case object And extends BinOp
+  case object AndBinOp extends BinOp
 
-  case object Or extends BinOp
+  case object OrBinOp extends BinOp
 
-  case object Implication extends BinOp
+  case object ImplicationBinOp extends BinOp
 
 
   case class AtomExp(p: Id) extends Exp
