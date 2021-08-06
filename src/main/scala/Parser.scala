@@ -34,10 +34,18 @@ object Parser extends Parsers {
     }
   }
 
-  private lazy val program: Parser[Exp] = expression
+  lazy val program: Parser[Exp] = expression()
 
-  private lazy val expression: Parser[Exp] = phrase {
-    unopexp | binopexp | parenexp | atomexp
+  private def expression(antiPrecedence: Int = 1): Parser[Exp] = antiPrecedence match {
+    case x if x >= 0 =>
+      binopexp(antiPrecedence) |
+        expression(x - 1)
+    case -1 =>
+      unopexp |
+        expression(-2)
+    case -2 =>
+      atomexp |
+        parenthesis
   }
 
   private lazy val identifier: Parser[IDENTIFIER] = {
@@ -54,13 +62,20 @@ object Parser extends Parsers {
 
   private lazy val unop: Parser[UnOp] = not
 
-  private lazy val binop: Parser[BinOp] = and | or | implication
+  private lazy val unopexp: Parser[Exp] = (unop ~ expression()) ^^ { case op ~ exp => UnOpExp(op, exp) }
 
-  private lazy val unopexp: Parser[Exp] = (unop ~ expression) ^^ { case op ~ exp => UnOpExp(op, exp) }
+  private def binop(antiPrecedence: Int): Parser[BinOp] = antiPrecedence match {
+    case 0 => and | or
+    case 1 => implication
+  }
 
-  private lazy val binopexp: Parser[Exp] = (expression ~ binop ~ expression) ^^ { case exp1 ~ op ~ exp2 => BinOpExp(exp1, op, exp2) }
+  private def binopexp(antiPrecedence: Int): Parser[Exp] = expression(antiPrecedence - 1) * {
+    binop(antiPrecedence) ^^ { op => { (left: Exp, right: Exp) => BinOpExp(left, op, right) } }
+  }
 
-  private lazy val parenexp: Parser[Exp] = (LEFT_PAREN ~ expression ~ RIGHT_PAREN) ^^ { case _ ~ exp ~ _ => exp }
+  // (expression ~ binop ~ expression) ^^ { case exp1 ~ op ~ exp2 => BinOpExp(exp1, op, exp2) }
+
+  private lazy val parenthesis: Parser[Exp] = (LEFT_PAREN ~ expression() ~ RIGHT_PAREN) ^^ { case _ ~ exp ~ _ => exp }
 
   private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
 
