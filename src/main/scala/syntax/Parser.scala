@@ -60,8 +60,6 @@ object Parser extends Parsers {
     binop(antiPrecedence) ^^ { op => { (left: Exp, right: Exp) => BinOpExp(left, op, right) } }
   }
 
-  // (expression ~ binop ~ expression) ^^ { case exp1 ~ op ~ exp2 => BinOpExp(exp1, op, exp2) }
-
   private lazy val parenthesis: Parser[Exp] = (LEFT_PAREN ~ expression() ~ RIGHT_PAREN) ^^ { case _ ~ exp ~ _ => exp }
 
   private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
