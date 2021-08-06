@@ -7,6 +7,6 @@ object Main extends App {
   println(lexed)
   val program = Parser.parse(lexed)
   println(program)
-  // val results = Environment.allPossibleFrom(program).map(env => (env, Interpreter.eval(program, env)))
+  val results = Environment.allPossibleFrom(program).map(env => (env, Interpreter.eval(program, env)))
 }
 
