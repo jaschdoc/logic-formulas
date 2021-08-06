@@ -2,9 +2,6 @@ package io.jaschdoc
 
 import syntax.{Lexer, Parser}
 
-import io.jaschdoc.Environment.freeVars
-
-
 object Main extends App {
   val input = "p and q -> f"
   val lexed = Lexer.on(input)
