@@ -26,6 +26,19 @@ object Lexer extends RegexParsers {
 
   private val keywords = Set("not", "and", "or", "->")
 
+  private def tokens: Parser[List[LogicToken]] =
+    phrase(
+      rep1(
+        leftParen |
+          rightParen |
+          not |
+          and |
+          or |
+          arrow |
+          identifier
+      )
+    )
+
   private def identifier: Parser[IDENTIFIER] = {
     "[a-zA-Z_][a-zA-Z0-9_]*".r ^^ { case str if !keywords.contains(str) => IDENTIFIER(str) }
   }
@@ -42,4 +55,5 @@ object Lexer extends RegexParsers {
 
   private def arrow: Parser[ARROW.type] = "->" ^^ { _ => ARROW }
 
+  case class FormulaLexerError(msg: String) extends FormulaCompilationError(msg)
 }
