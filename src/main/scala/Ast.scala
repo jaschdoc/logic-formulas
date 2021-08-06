@@ -8,9 +8,11 @@ object Ast {
 
   sealed trait Exp extends AstNode
 
+
   sealed trait UnOp extends AstNode
 
   case object Not extends UnOp
+
 
   sealed trait BinOp extends AstNode
 
