@@ -8,7 +8,7 @@ object Interpreter {
   type Env = Map[Id, Value]
 
   def eval(e: Exp, env: Env): Value = e match {
-    case AtomExp(p) => env.getOrElse(p, throw new InterpreterError("Internal Error!"))
+    case AtomExp(p) => env.getOrElse(p, throw new InterpreterError(s"Unknown identifier $p"))
     case UnOpExp(op, p) =>
       val p1 = eval(p, env)
       op match {
