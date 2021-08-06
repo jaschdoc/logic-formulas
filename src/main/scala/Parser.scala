@@ -1,6 +1,7 @@
 package io.jaschdoc
 
-import Tokens.{IDENTIFIER, LogicToken}
+import Ast._
+import Tokens._
 
 import scala.util.parsing.combinator.Parsers
 
@@ -23,10 +24,22 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
-  private def identifier: Parser[IDENTIFIER] = {
+  private lazy val identifier: Parser[IDENTIFIER] = {
     accept("identifier", { case id: IDENTIFIER => id })
   }
 
-  def
+  private lazy val not: Parser[UnOp] = NOT ^^ { _ => NotUnOp }
+
+  private lazy val and: Parser[BinOp] = AND ^^ { _ => AndBinOp }
+
+  private lazy val or: Parser[BinOp] = OR ^^ { _ => OrBinOp }
+
+  private lazy val implication: Parser[BinOp] = ARROW ^^ { _ => ImplicationBinOp }
+
+  private lazy val unop: Parser[UnOp] = not
+
+  private lazy val binop: Parser[BinOp] = and | or | implication
+
+
 
 }
