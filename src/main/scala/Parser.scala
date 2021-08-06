@@ -24,7 +24,7 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
-  private def expression: Parser[Exp] = phrase {
+  lazy val expression: Parser[Exp] = phrase {
     unopexp | binopexp | parenexp | atomexp
   }
 
@@ -44,8 +44,11 @@ object Parser extends Parsers {
 
   private lazy val binop: Parser[BinOp] = and | or | implication
 
-  private lazy val unopexp: Parser[Exp] = ???
-  private lazy val binopexp: Parser[Exp] = ???
-  private lazy val parenexp: Parser[Exp] = ???
-  private lazy val atomexp: Parser[Exp] = ???
+  private lazy val unopexp: Parser[Exp] = (unop ~ expression) ^^ { case op ~ exp => UnOpExp(op, exp) }
+
+  private lazy val binopexp: Parser[Exp] = (expression ~ binop ~ expression) ^^ { case exp1 ~ op ~ exp2 => BinOpExp(exp1, op, exp2) }
+
+  private lazy val parenexp: Parser[Exp] = (LEFT_PAREN ~ expression ~ RIGHT_PAREN) ^^ { case _ ~ exp ~ _ => exp }
+
+  private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
 }
