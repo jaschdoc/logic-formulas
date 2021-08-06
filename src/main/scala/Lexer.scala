@@ -24,6 +24,14 @@ object Lexer extends RegexParsers {
 
   override val whiteSpace: Regex = """[ \t\r\f\n]""".r
 
+
+  def apply(code: String): Either[FormulaLexerError, List[LogicToken]] = {
+    parse(tokens, code) match {
+      case NoSuccess(msg, _) => Left(FormulaLexerError(msg))
+      case Success(result, _) => Right(result)
+    }
+  }
+
   private val keywords = Set("not", "and", "or", "->")
 
   private def tokens: Parser[List[LogicToken]] =
