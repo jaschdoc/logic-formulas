@@ -27,7 +27,7 @@ object Lexer extends RegexParsers {
   private val keywords = Set("not", "and", "or", "->")
 
   private def identifier: Parser[IDENTIFIER] = {
-    "[a-zA-Z_][a-zA-Z0-9_]*".r ^^ { str => IDENTIFIER(str) }
+    "[a-zA-Z_][a-zA-Z0-9_]*".r ^^ { case str if !keywords.contains(str) => IDENTIFIER(str) }
   }
 
   private def leftParen: Parser[LEFT_PAREN.type] = "(" ^^ { _ => LEFT_PAREN }
