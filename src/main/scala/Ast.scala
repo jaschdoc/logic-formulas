@@ -8,16 +8,14 @@ object Ast {
 
   sealed trait Exp extends AstNode
 
+  sealed trait UnOpExp extends Exp
+
+  sealed trait BinOpExp extends Exp
+
 
   case class AtomExp(p: Id) extends Exp
 
-
-  sealed trait UnOpExp extends Exp
-
   case class NotExp(p: Exp) extends UnOpExp
-
-
-  sealed trait BinOpExp extends Exp
 
   case class AndExp(p: Exp, q: Exp) extends BinOpExp
 
