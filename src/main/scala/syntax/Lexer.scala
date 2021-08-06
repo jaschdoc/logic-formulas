@@ -1,10 +1,10 @@
 package io.jaschdoc
+package syntax
 
-import Tokens._
+import syntax.Tokens._
 
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.RegexParsers
-
 
 object Lexer extends RegexParsers {
   override def skipWhitespace: Boolean = true

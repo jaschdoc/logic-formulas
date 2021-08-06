@@ -1,24 +1,11 @@
 package io.jaschdoc
+package syntax
 
-import Ast._
-import Tokens._
+import syntax.Tokens._
+
+import io.jaschdoc.Ast.{AndBinOp, AtomExp, BinOp, BinOpExp, Exp, ImplicationBinOp, NotUnOp, OrBinOp, UnOp, UnOpExp}
 
 import scala.util.parsing.combinator.Parsers
-
-
-// Grammar
-// Symbols in backticks are terminals / literals
-// ###################################################################
-// Exp      ::= Atom | UnOp Exp | Exp BinOp Exp | (Exp)
-// Atom     ::= [a-z]
-// UnOp     ::= `not`
-// BinOp    ::= `and` | `or` | `->`
-// ###################################################################
-// Operator precedence (from strongest to weakest)
-// 1. Unary operator `not` binds the strongest
-// 2. Binary Operators `and` and `or` (left associative)
-// 3. Binary Operator `implies` (right associative)
-
 
 object Parser extends Parsers {
 

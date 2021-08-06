@@ -1,6 +1,7 @@
 package io.jaschdoc
+package syntax
 
-import Tokens.LogicToken
+import syntax.Tokens.LogicToken
 
 import scala.util.parsing.input.{NoPosition, Position, Reader}
 

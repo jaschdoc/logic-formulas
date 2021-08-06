@@ -1,4 +1,5 @@
 package io.jaschdoc
+package syntax
 
 object Tokens {
 
