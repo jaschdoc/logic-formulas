@@ -18,7 +18,7 @@ class ParserSpec extends UnitSpec {
     }
   }
 
-  it should "not accept two atoms only" in {
+  it should "not accept two disjunctive expressions" in {
     assertThrows[SyntaxError] {
       Parser.parse("p q")
     }
@@ -31,7 +31,31 @@ class ParserSpec extends UnitSpec {
     }
   }
 
-  it must "recognize an AND operator" in {
+  it should "not accept a NOT operator with no expression" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("not")
+    }
+  }
+
+  it should "not accept an AND operator with no expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("and")
+    }
+  }
+
+  it should "not accept an AND operator with only a left expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("p and")
+    }
+  }
+
+  it should "not accept an AND operator with only a right expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("and p")
+    }
+  }
+
+  it must "accept an AND operator with two expressions" in {
     val expected = BinOpExp(AtomExp("p"), AndBinOp, AtomExp("q"))
     assertResult(expected) {
       Parser.parse("p and q")
