@@ -13,7 +13,7 @@ object Parser extends Parsers {
   override type Elem = LogicToken
 
   def parse(code: String): Exp = Lexer.on(code) match {
-    case Left(value) => throw new FormulaParserError(value.toString)
+    case Left(value) => throw new SyntaxError(value.toString)
     case Right(value) => apply(value)
   }
 
@@ -21,13 +21,13 @@ object Parser extends Parsers {
     val reader = new LogicTokenReader(tokens)
     program(reader) match {
       case Success(result, _) => result
-      case Error(msg, input) => throw new FormulaParserError(msg, input.toString)
-      case Failure(msg, input) => throw new FormulaParserError(msg, input.toString)
+      case Error(msg, input) => throw new SyntaxError(msg, input.toString)
+      case Failure(msg, input) => throw new SyntaxError(msg, input.toString)
     }
   }
 
   lazy val program: Parser[Exp] = Try(phrase(expression())) match {
-    case util.Failure(exception) => throw new FormulaParserError(exception.getMessage)
+    case util.Failure(exception) => throw new SyntaxError(exception.getMessage)
     case util.Success(value) => value
   }
 
@@ -82,9 +82,4 @@ object Parser extends Parsers {
 
     override def atEnd: Boolean = tokens.isEmpty
   }
-
-  class FormulaParserError(msg: String, input: String = "") extends FormulaCompilationError(s"$msg\nInput was: $input") {
-    override def toString: String = s"$msg\nInput was: $input"
-  }
-
 }

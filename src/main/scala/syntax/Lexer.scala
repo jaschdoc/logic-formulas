@@ -11,11 +11,11 @@ object Lexer extends RegexParsers {
 
   override val whiteSpace: Regex = """[ \t\r\f\n]""".r
 
-  def on(code: String): Either[FormulaLexerError, List[LogicToken]] = apply(code)
+  def on(code: String): Either[SyntaxError, List[LogicToken]] = apply(code)
 
-  def apply(code: String): Either[FormulaLexerError, List[LogicToken]] = {
+  def apply(code: String): Either[SyntaxError, List[LogicToken]] = {
     parse(tokens, code) match {
-      case NoSuccess(msg, input) => Left(new FormulaLexerError(msg, input.toString))
+      case NoSuccess(msg, input) => Left(new SyntaxError(msg, input.toString))
       case Success(result, _) => Right(result)
     }
   }
@@ -51,8 +51,4 @@ object Lexer extends RegexParsers {
   private def or: Parser[OR.type] = "or" ^^ { _ => OR }
 
   private def arrow: Parser[ARROW.type] = "->" ^^ { _ => ARROW }
-
-  class FormulaLexerError(msg: String, input: String = "") extends FormulaCompilationError(s"$msg\nInput was: $input") {
-    override def toString: String = s"$msg\nInput was: $input"
-  }
 }

@@ -1,13 +1,12 @@
 package io.jaschdoc
 
 import Ast._
-import syntax.Parser
-import syntax.Parser.FormulaParserError
+import syntax.{Parser, SyntaxError}
 
 class ParserSpec extends UnitSpec {
 
   "The parser" should "not accept an empty program" in {
-    assertThrows[FormulaParserError] {
+    assertThrows[SyntaxError] {
       Parser.parse("")
     }
   }
@@ -20,7 +19,7 @@ class ParserSpec extends UnitSpec {
   }
 
   it should "not accept two atoms only" in {
-    assertThrows[FormulaParserError] {
+    assertThrows[SyntaxError] {
       Parser.parse("p q")
     }
   }
