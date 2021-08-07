@@ -9,3 +9,5 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest-flatspec" % "3.2.9" % "test"
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.9"
+
+Test / logBuffered := false
