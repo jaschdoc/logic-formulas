@@ -75,4 +75,28 @@ class InterpreterSuite extends UnitSpec {
     val env = Map("p" -> false, "q" -> false)
     Interpreter.eval(exp, env) shouldBe false
   }
+
+  it must "adhere to the truth table of the IMPLICATION operator (1)" in {
+    val exp = Parser.parse("p -> q")
+    val env = Map("p" -> true, "q" -> true)
+    Interpreter.eval(exp, env) shouldBe true
+  }
+
+  it must "adhere to the truth table of the IMPLICATION operator (2)" in {
+    val exp = Parser.parse("p -> q")
+    val env = Map("p" -> true, "q" -> false)
+    Interpreter.eval(exp, env) shouldBe false
+  }
+
+  it must "adhere to the truth table of the IMPLICATION operator (3)" in {
+    val exp = Parser.parse("p -> q")
+    val env = Map("p" -> false, "q" -> true)
+    Interpreter.eval(exp, env) shouldBe true
+  }
+
+  it must "adhere to the truth table of the IMPLICATION operator (4)" in {
+    val exp = Parser.parse("p -> q")
+    val env = Map("p" -> false, "q" -> false)
+    Interpreter.eval(exp, env) shouldBe true
+  }
 }
