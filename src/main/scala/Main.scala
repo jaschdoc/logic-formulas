@@ -25,8 +25,7 @@ object Main extends App {
     val input = StdIn.readLine("Please input command: ").trim.toLowerCase
 
     if (!exitWords.contains(input)) {
-      Commands.from(input).run
-
+      println(Commands.from(input).run)
     } else {
       running = false
       sys.exit()
