@@ -16,8 +16,9 @@ object Parser extends Parsers {
   def apply(tokens: Seq[LogicToken]): Exp = {
     val reader = new LogicTokenReader(tokens)
     program(reader) match {
-      case NoSuccess(msg, _) => throw new FormulaParserError(msg)
       case Success(result, _) => result
+      case Error(msg, input) => throw new FormulaParserError(s"$msg\nInput was: $input")
+      case Failure(msg, input) => throw new FormulaParserError(s"$msg\nInput was: $input")
     }
   }
 
