@@ -9,8 +9,8 @@
     <option name="testKind" value="All in package" />
     <option name="classBuf">
       <list>
-        <option value="io.jaschdoc.InterpreterSuite" />
         <option value="io.jaschdoc.ParserSuite" />
+        <option value="io.jaschdoc.InterpreterSuite" />
       </list>
     </option>
     <option name="shortenClasspath" value="NONE" />
