@@ -3,7 +3,7 @@ package io.jaschdoc
 import Ast._
 import syntax.{Parser, SyntaxError}
 
-class ParserSpec extends UnitSpec {
+class ParserSuite extends UnitSpec {
 
   "The parser" should "not accept an empty program" in {
     assertThrows[SyntaxError] {
