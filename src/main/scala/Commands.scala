@@ -15,7 +15,7 @@ object Commands {
 
   sealed trait Command {
 
-    def stringify: String =
+    override def toString: String =
       s"""$toCommand\t${
         val a = aliases.mkString(", ")
         if (a.isEmpty) ""
@@ -55,7 +55,7 @@ object Commands {
 
     override def run: String =
       s"""Commands:
-         |${Commands.allCommands.map(c => "\t" + c.stringify).mkString("\n")}""".stripMargin
+         |${Commands.allCommands.map(c => "\t" + c.toString).mkString("\n")}""".stripMargin
   }
 
   case object InvalidCommand extends Command {
