@@ -87,6 +87,24 @@ class ParserSpec extends UnitSpec {
     }
   }
 
+  it should "not accept an IMPLICATION operator with no expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("->")
+    }
+  }
+
+  it should "not accept an IMPLICATION operator with only a left expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("p ->")
+    }
+  }
+
+  it should "not accept an IMPLICATION operator with only a right expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("-> p")
+    }
+  }
+
   it must "recognize an IMPLICATION operator" in {
     val expected = BinOpExp(AtomExp("p"), ImplicationBinOp, AtomExp("q"))
     assertResult(expected) {
