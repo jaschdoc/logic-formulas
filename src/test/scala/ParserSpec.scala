@@ -172,12 +172,19 @@ class ParserSpec extends UnitSpec {
       )
     )
 
-    val actual = Parser.parse("p and (not q or (s -> not (a or b)))\n")
+    val actual = Parser.parse("p and (not q or (s -> not (a or b)))")
 
     withClue(Unparser.unparse(actual)) {
       assertResult(expected) {
         actual
       }
+    }
+  }
+
+  it should "not be sensitive to whitespaces" in {
+    val expected = BinOpExp(AtomExp("p"), AndBinOp, AtomExp("q"))
+    assertResult(expected) {
+      Parser.parse("     p     and       q        ")
     }
   }
 }
