@@ -4,6 +4,7 @@ package syntax
 import Ast._
 import syntax.Tokens._
 
+import scala.util.Try
 import scala.util.parsing.combinator.Parsers
 import scala.util.parsing.input.{NoPosition, Position, Reader}
 
@@ -25,7 +26,10 @@ object Parser extends Parsers {
     }
   }
 
-  lazy val program: Parser[Exp] = expression()
+  lazy val program: Parser[Exp] = Try(phrase(expression())) match {
+    case util.Failure(exception) => throw new FormulaParserError(exception.getMessage)
+    case util.Success(value) => value
+  }
 
   private def expression(antiPrecedence: Int = 1): Parser[Exp] = antiPrecedence match {
     case x if x >= 0 =>

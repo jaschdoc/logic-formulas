@@ -11,6 +11,9 @@ object Main extends App {
   println(results)
   println()
 
+  //println(Parser.parse("p q"))
+  println()
+
   val e = BinOpExp(
     AtomExp("p"),
     AndBinOp,

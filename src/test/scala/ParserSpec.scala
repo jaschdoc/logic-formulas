@@ -19,9 +19,10 @@ class ParserSpec extends UnitSpec {
     }
   }
 
-  ignore should "not accept two atoms only" in {
-    Parser.parse("p q")
-    fail("Not implemented yet")
+  it should "not accept two atoms only" in {
+    assertThrows[FormulaParserError] {
+      Parser.parse("p q")
+    }
   }
 
   it must "recognize a negation expression" in {
