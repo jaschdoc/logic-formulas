@@ -12,7 +12,7 @@ class ParserSpec extends UnitSpec {
     }
   }
 
-  it should "accept a single atom" in {
+  it must "accept a single atom" in {
     val expected = AtomExp("p")
     assertResult(expected) {
       Parser.parse("p")
@@ -24,28 +24,28 @@ class ParserSpec extends UnitSpec {
     fail("Not implemented yet")
   }
 
-  it should "recognize a negation expression" in {
+  it must "recognize a negation expression" in {
     val expected = UnOpExp(NotUnOp, AtomExp("p"))
     assertResult(expected) {
       Parser.parse("not p")
     }
   }
 
-  it should "recognize an AND operator" in {
+  it must "recognize an AND operator" in {
     val expected = BinOpExp(AtomExp("p"), AndBinOp, AtomExp("q"))
     assertResult(expected) {
       Parser.parse("p and q")
     }
   }
 
-  it should "recognize an OR operator" in {
+  it must "recognize an OR operator" in {
     val expected = BinOpExp(AtomExp("p"), OrBinOp, AtomExp("q"))
     assertResult(expected) {
       Parser.parse("p or q")
     }
   }
 
-  it should "recognize an IMPLICATION operator" in {
+  it must "recognize an IMPLICATION operator" in {
     val expected = BinOpExp(AtomExp("p"), ImplicationBinOp, AtomExp("q"))
     assertResult(expected) {
       Parser.parse("p -> q")
