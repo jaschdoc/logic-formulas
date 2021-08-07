@@ -11,12 +11,12 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
-  def parse(tokens: Seq[LogicToken]): Exp = apply(tokens)
+  def parse(code: String): Exp = apply(Lexer.on(code))
 
   def apply(tokens: Seq[LogicToken]): Exp = {
     val reader = new LogicTokenReader(tokens)
     program(reader) match {
-      case NoSuccess(msg, _) => throw FormulaParserError(msg)
+      case NoSuccess(msg, _) => throw new FormulaParserError(msg)
       case Success(result, _) => result
     }
   }
@@ -64,7 +64,7 @@ object Parser extends Parsers {
 
   private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
 
-  case class FormulaParserError(msg: String) extends FormulaCompilationError(msg)
+  class FormulaParserError(msg: String) extends FormulaCompilationError(msg)
 
 
   class LogicTokenReader(tokens: Seq[LogicToken]) extends Reader[LogicToken] {
