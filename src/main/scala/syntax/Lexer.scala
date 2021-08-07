@@ -9,9 +9,9 @@ import scala.util.parsing.combinator.RegexParsers
 object Lexer extends RegexParsers {
   override def skipWhitespace: Boolean = true
 
-  override val whiteSpace: Regex = """[ \t\r\f\n]""".r
+  override val whiteSpace: Regex = """\s+""".r
 
-  def on(code: String): Either[SyntaxError, List[LogicToken]] = apply(code)
+  def on(code: String): Either[SyntaxError, List[LogicToken]] = apply(code.trim)
 
   def apply(code: String): Either[SyntaxError, List[LogicToken]] = {
     parse(tokens, code) match {
