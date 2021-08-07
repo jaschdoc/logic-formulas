@@ -55,7 +55,8 @@ object Commands {
         case Success(exp) =>
           val evaluations = Environment.allPossibleFrom(exp)
             .map(env => (env, Interpreter.eval(exp, env)))
-          evaluations.toString()
+
+          evaluations.map(t => t._1.mkString("| ", " | ", " | ") + t._2 + " |").mkString("\n")
       }
     }
   }
