@@ -187,4 +187,10 @@ class ParserSpec extends UnitSpec {
       Parser.parse("     p     and       q        ")
     }
   }
+
+  it should "not accept symbol-characters" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("- and *")
+    }
+  }
 }
