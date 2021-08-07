@@ -1,5 +1,10 @@
 package io.jaschdoc
 
+import syntax.Parser
+
+import scala.io.StdIn
+import scala.util.{Failure, Success, Try}
+
 object Commands {
 
   def from(input: String): Command = {
@@ -43,7 +48,16 @@ object Commands {
 
     override def description: String = "Checks all combinations of truth values for all variables in a formula (SAT-solver)."
 
-    override def run: String = ???
+    override def run: String = {
+      val input = StdIn.readLine("Please input a formula: ")
+      Try(Parser.parse(input)) match {
+        case Failure(exception) => exception.getMessage
+        case Success(exp) =>
+          val evaluations = Environment.allPossibleFrom(exp)
+            .map(env => (env, Interpreter.eval(exp, env)))
+          evaluations.toString()
+      }
+    }
   }
 
   case object Help extends Command {
