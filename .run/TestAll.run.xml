@@ -9,6 +9,7 @@
     <option name="testKind" value="All in package" />
     <option name="classBuf">
       <list>
+        <option value="io.jaschdoc.InterpreterSpec" />
         <option value="io.jaschdoc.ParserSpec" />
       </list>
     </option>
