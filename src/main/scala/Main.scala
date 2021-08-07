@@ -22,7 +22,7 @@ object Main extends App {
   var running = true
   while (running) {
 
-    val input = StdIn.readLine("Please input command: ").trim.toLowerCase
+    val input = StdIn.readLine(s"Please input command (Type ${exitWords.mkString(", ")} to quit): ").trim.toLowerCase
 
     if (!exitWords.contains(input)) {
       println(Commands.from(input).run)
