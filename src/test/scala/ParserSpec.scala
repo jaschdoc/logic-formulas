@@ -98,7 +98,7 @@ class ParserSpec extends UnitSpec {
         ),
         OrBinOp,
         BinOpExp(
-          AtomExp(""),
+          AtomExp("s"),
           ImplicationBinOp,
           UnOpExp(
             NotUnOp,
