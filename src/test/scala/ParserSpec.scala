@@ -31,4 +31,24 @@ class ParserSpec extends UnitSpec {
     }
   }
 
+  it should "recognize an AND operator" in {
+    val expected = BinOpExp(AtomExp("p"), AndBinOp, AtomExp("q"))
+    assertResult(expected) {
+      Parser.parse("p and q")
+    }
+  }
+
+  it should "recognize an OR operator" in {
+    val expected = BinOpExp(AtomExp("p"), OrBinOp, AtomExp("q"))
+    assertResult(expected) {
+      Parser.parse("p or q")
+    }
+  }
+
+  it should "recognize an IMPLICATION operator" in {
+    val expected = BinOpExp(AtomExp("p"), ImplicationBinOp, AtomExp("q"))
+    assertResult(expected) {
+      Parser.parse("p -> q")
+    }
+  }
 }
