@@ -113,7 +113,7 @@ class ParserSpec extends UnitSpec {
     )
 
     assertResult(expected) {
-      Parser.parse("(p and (not q or (s -> not (a or b)))")
+      Parser.parse("p and (not q or (s -> not (a or b)))")
     }
   }
 }
