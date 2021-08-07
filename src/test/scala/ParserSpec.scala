@@ -88,6 +88,32 @@ class ParserSpec extends UnitSpec {
   }
 
   it must "account for parenthesis precedence" in {
-    cancel()
+    val expected = BinOpExp(
+      AtomExp("p"),
+      AndBinOp,
+      BinOpExp(
+        UnOpExp(
+          NotUnOp,
+          AtomExp("q")
+        ),
+        OrBinOp,
+        BinOpExp(
+          AtomExp(""),
+          ImplicationBinOp,
+          UnOpExp(
+            NotUnOp,
+            BinOpExp(
+              AtomExp("a"),
+              OrBinOp,
+              AtomExp("b")
+            )
+          )
+        )
+      )
+    )
+
+    assertResult(expected) {
+      Parser.parse("(p and (not q or (s -> not (a or b)))")
+    }
   }
 }
