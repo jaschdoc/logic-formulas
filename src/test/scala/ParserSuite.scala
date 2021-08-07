@@ -4,6 +4,7 @@ import Ast._
 import syntax.{Parser, SyntaxError}
 
 class ParserSuite extends UnitSpec {
+  // TODO: Refactor tests to use natural language - see InterpreterSuite
 
   "The parser" should "not accept an empty program" in {
     assertThrows[SyntaxError] {
