@@ -11,14 +11,17 @@ object Parser extends Parsers {
 
   override type Elem = LogicToken
 
-  def parse(code: String): Exp = apply(Lexer.on(code))
+  def parse(code: String): Exp = Lexer.on(code) match {
+    case Left(value) => throw new FormulaParserError(value.toString)
+    case Right(value) => apply(value)
+  }
 
   def apply(tokens: Seq[LogicToken]): Exp = {
     val reader = new LogicTokenReader(tokens)
     program(reader) match {
       case Success(result, _) => result
-      case Error(msg, input) => throw new FormulaParserError(s"$msg\nInput was: $input")
-      case Failure(msg, input) => throw new FormulaParserError(s"$msg\nInput was: $input")
+      case Error(msg, input) => throw new FormulaParserError(msg, input.toString)
+      case Failure(msg, input) => throw new FormulaParserError(msg, input.toString)
     }
   }
 
@@ -65,8 +68,6 @@ object Parser extends Parsers {
 
   private lazy val atomexp: Parser[Exp] = identifier ^^ { id => AtomExp(id.str) }
 
-  class FormulaParserError(msg: String) extends FormulaCompilationError(msg)
-
 
   class LogicTokenReader(tokens: Seq[LogicToken]) extends Reader[LogicToken] {
     override def first: LogicToken = tokens.head
@@ -76,6 +77,10 @@ object Parser extends Parsers {
     override def pos: Position = NoPosition
 
     override def atEnd: Boolean = tokens.isEmpty
+  }
+
+  class FormulaParserError(msg: String, input: String = "") extends FormulaCompilationError(s"$msg\nInput was: $input") {
+    override def toString: String = s"$msg\nInput was: $input"
   }
 
 }

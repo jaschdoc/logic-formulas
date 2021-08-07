@@ -1,12 +1,12 @@
 package io.jaschdoc
 
-import syntax.Lexer.FormulaLexerError
 import syntax.Parser
+import syntax.Parser.FormulaParserError
 
 class ParserSpec extends UnitSpec {
 
   "The parser" should "not accept an empty program" in {
-    assertThrows[FormulaLexerError] {
+    assertThrows[FormulaParserError] {
       Parser.parse("")
     }
   }
