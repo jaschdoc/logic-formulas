@@ -42,14 +42,14 @@ object Commands {
   }
 
   case object AllCombinations extends Command {
-    override def toCommand: String = "all-combinations"
+    override def toCommand: String = "solve"
 
-    override def aliases: Set[String] = Set("sat-solve")
+    override def aliases: Set[String] = Set("solve-all")
 
     override def description: String = "Checks all combinations of truth values for all variables in a formula (SAT-solver)."
 
     override def run: String = {
-      val input = StdIn.readLine("Please input a formula: ")
+      val input = StdIn.readLine("Please input a formula: ").trim
       Try(Parser.parse(input)) match {
         case Failure(exception) => exception.getMessage
         case Success(exp) =>
