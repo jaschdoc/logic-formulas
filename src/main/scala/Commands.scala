@@ -3,7 +3,7 @@ package io.jaschdoc
 object Commands {
 
   def from(input: String): Command = {
-    val command = allCommands.filter(c => (c.aliases + c.toCommand).contains(input))
+    val command = allCommands.filter(c => c.triggers.contains(input))
     if (command.nonEmpty) {
       command.head
     } else {
@@ -15,7 +15,7 @@ object Commands {
 
   sealed trait Command {
 
-    override def toString: String =
+    def stringify: String =
       s"""$toCommand\t${
         val a = aliases.mkString(", ")
         if (a.isEmpty) ""
@@ -23,12 +23,13 @@ object Commands {
         else "Aliases: " + a
       }
          |\t  $description
-         |
          |""".stripMargin
 
     def toCommand: String
 
     def aliases: Set[String]
+
+    def triggers: Set[String] = aliases + toCommand
 
     def description: String
 
@@ -54,7 +55,7 @@ object Commands {
 
     override def run: String =
       s"""Commands:
-         |${Commands.allCommands.map(c => "\t" + c.toString).mkString}""".stripMargin
+         |${Commands.allCommands.map(c => "\t" + c.stringify).mkString("\n")}""".stripMargin
   }
 
   case object InvalidCommand extends Command {
