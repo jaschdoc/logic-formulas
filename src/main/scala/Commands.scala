@@ -2,7 +2,14 @@ package io.jaschdoc
 
 object Commands {
 
-  def from(args: Array[String]): Set[Command] = ???
+  def from(input: String): Command = {
+    val command = allCommands.filter(c => (c.aliases + c.toCommand).contains(input))
+    if (command.nonEmpty) {
+      command.head
+    } else {
+      InvalidCommand
+    }
+  }
 
   def allCommands: Set[Command] = Set(AllCombinations, Help)
 
@@ -16,6 +23,7 @@ object Commands {
         else "Aliases: " + a
       }
          |\t  $description
+         |
          |""".stripMargin
 
     def toCommand: String
@@ -46,7 +54,16 @@ object Commands {
 
     override def run: String =
       s"""Commands:
-         |${Commands.allCommands.map(c => "\t" + c.toString).mkString("\n")}
-         |""".stripMargin
+         |${Commands.allCommands.map(c => "\t" + c.toString).mkString}""".stripMargin
+  }
+
+  case object InvalidCommand extends Command {
+    override def toCommand: String = ""
+
+    override def aliases: Set[String] = Set()
+
+    override def description: String = ""
+
+    override def run: String = "Invalid Command. Type 'help' for more information."
   }
 }
