@@ -62,6 +62,24 @@ class ParserSpec extends UnitSpec {
     }
   }
 
+  it should "not accept an OR operator with no expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("or")
+    }
+  }
+
+  it should "not accept an OR operator with only a left expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("p or")
+    }
+  }
+
+  it should "not accept an OR operator with only a right expressions" in {
+    assertThrows[SyntaxError] {
+      Parser.parse("or p")
+    }
+  }
+
   it must "recognize an OR operator" in {
     val expected = BinOpExp(AtomExp("p"), OrBinOp, AtomExp("q"))
     assertResult(expected) {
