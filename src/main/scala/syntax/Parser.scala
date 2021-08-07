@@ -53,11 +53,11 @@ object Parser extends Parsers {
 
   private lazy val unop: Parser[UnOp] = not
 
-  private lazy val unopexp: Parser[Exp] = (unop ~ expression()) ^^ { case op ~ exp => UnOpExp(op, exp) }
+  private lazy val unopexp: Parser[Exp] = (unop ~ expression(-1)) ^^ { case op ~ exp => UnOpExp(op, exp) }
 
   private def binop(antiPrecedence: Int): Parser[BinOp] = antiPrecedence match {
-    case 1 => implication
     case 0 => and | or
+    case 1 => implication
   }
 
   private def binopexp(antiPrecedence: Int): Parser[Exp] = expression(antiPrecedence - 1) * {
