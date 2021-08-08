@@ -194,4 +194,44 @@ class ParserSuite extends UnitSpec {
       Parser.parse("- and *")
     }
   }
+
+  it should "respect right associativity of the IMPLICATION operator" in {
+    // p -> p -> p -> q == p -> (p -> (p -> (q)))
+    val expectedAST =
+      BinOpExp(
+        AtomExp("p"),
+        ImplicationBinOp,
+        BinOpExp(
+          AtomExp("p"),
+          ImplicationBinOp,
+          BinOpExp(
+            AtomExp("p"),
+            ImplicationBinOp,
+            AtomExp("q")
+          )
+        )
+      )
+
+    Parser.parse("p -> p -> p -> q") shouldBe expectedAST
+  }
+
+  it should "respect left associativity of the AND operator" in {
+    // p and q and p and q == (((p and q) and p) and q)
+    val expectedAST =
+      BinOpExp(
+        BinOpExp(
+          BinOpExp(
+            AtomExp("p"),
+            AndBinOp,
+            AtomExp("q")
+          ),
+          AndBinOp,
+          AtomExp("p")
+        ),
+        AndBinOp,
+        AtomExp("q")
+      )
+
+    Parser.parse("p and q and p and q") shouldBe expectedAST
+  }
 }
