@@ -54,7 +54,7 @@ object Commands {
         case Failure(exception) => exception.getMessage
         case Success(exp) =>
           val evaluations = Environment.allPossibleFrom(exp)
-            .map(env => (env.toList.sortBy(t => t._1), Interpreter.eval(exp, env)))
+            .map(env => (env.toList.sorted, Interpreter.eval(exp, env)))
 
           val header = evaluations.map(_._1).head.map(_._1).mkString("| ", " | ", " | result |")
           val body = evaluations.map(t =>
