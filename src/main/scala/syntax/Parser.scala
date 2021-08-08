@@ -9,6 +9,7 @@ import scala.util.parsing.combinator.Parsers
 import scala.util.parsing.input.{NoPosition, Position, Reader}
 
 object Parser extends Parsers {
+  // FIXME: Implication is currently left-associative, but SHOULD BE right-associative
 
   override type Elem = LogicToken
 
