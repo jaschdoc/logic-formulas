@@ -54,9 +54,17 @@ object Commands {
         case Failure(exception) => exception.getMessage
         case Success(exp) =>
           val evaluations = Environment.allPossibleFrom(exp)
-            .map(env => (env, Interpreter.eval(exp, env)))
+            .map(env => (env.toList.sortBy(t => t._1), Interpreter.eval(exp, env)))
 
-          evaluations.map(t => t._1.mkString("| ", " | ", " | ") + t._2 + " |").mkString("\n")
+          val header = evaluations.map(_._1).head.map(_._1).mkString("| ", " | ", " | result |")
+          val body = evaluations.map(t =>
+            t._1.map(
+              tt => util.PrintableBoolean.from(tt._2))
+              .mkString("| ", " | ", " | ")
+              + "  " + util.PrintableBoolean.from(t._2) + "    |")
+            .mkString("\n")
+
+          s"$header\n${"-".repeat(header.length)}\n$body"
       }
     }
   }
