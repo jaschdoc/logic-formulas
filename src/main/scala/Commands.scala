@@ -7,12 +7,12 @@ import scala.util.{Failure, Success, Try}
 
 object Commands {
 
+  // FIXME: Aliases not working somehow???
   def from(input: String): Command = {
-    val command = allCommands.filter(c => c.triggers.contains(input))
-    if (command.nonEmpty) {
-      command.head
-    } else {
-      InvalidCommand
+    val cmds: Set[Command] = allCommands.filter(_.triggers.contains(input))
+    cmds.headOption match {
+      case Some(value) => value
+      case None => InvalidCommand
     }
   }
 
@@ -20,7 +20,7 @@ object Commands {
 
   sealed trait Command {
 
-    override def toString: String =
+    def stringify: String =
       s"""$toCommand\t${
         val a = aliases.mkString(", ")
         if (a.isEmpty) ""
@@ -34,7 +34,7 @@ object Commands {
 
     def aliases: Set[String]
 
-    def triggers: Set[String] = aliases + toCommand
+    def triggers: Set[String] = (aliases + toCommand).map(_.toLowerCase.trim)
 
     def description: String
 
@@ -44,7 +44,7 @@ object Commands {
   case object AllCombinations extends Command {
     override def toCommand: String = "solve"
 
-    override def aliases: Set[String] = Set("solve-all")
+    override def aliases: Set[String] = Set("solve-all, sat")
 
     override def description: String = "Checks all combinations of truth values for all variables in a formula (SAT-solver)."
 
@@ -70,7 +70,7 @@ object Commands {
 
     override def run: String =
       s"""Commands:
-         |${Commands.allCommands.map(c => "\t" + c.toString).mkString("\n")}""".stripMargin
+         |${Commands.allCommands.map(c => "\t" + c.stringify).mkString("\n")}""".stripMargin
   }
 
   case object InvalidCommand extends Command {
