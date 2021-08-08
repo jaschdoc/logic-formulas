@@ -211,7 +211,8 @@ class ParserSuite extends UnitSpec {
           )
         )
       )
-
+    info(Unparser.unparse(expectedAST))
+    info(Unparser.unparse(Parser.parse("p -> p -> p -> q")))
     Parser.parse("p -> p -> p -> q") shouldBe expectedAST
   }
 
