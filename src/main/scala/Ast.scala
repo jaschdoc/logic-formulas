@@ -12,6 +12,9 @@ package io.jaschdoc
  * 1. UnOp binds the strongest
  * 2. and | or
  * 3. -> (implication)
+ *
+ * not | and | or    are all left associative
+ * -> (implication)  is right associative
  */
 object Ast {
 
