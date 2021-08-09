@@ -28,8 +28,8 @@ object Parser extends Parsers {
   }
 
   lazy val program: Parser[Exp] = Try(phrase(expression())) match {
-    case util.Failure(exception) => throw new SyntaxError(exception.getMessage)
-    case util.Success(value) => value
+    case scala.util.Failure(exception) => throw new SyntaxError(exception.getMessage)
+    case scala.util.Success(value) => value
   }
 
   private def expression(antiPrecedence: Int = 1): Parser[Exp] = antiPrecedence match {
