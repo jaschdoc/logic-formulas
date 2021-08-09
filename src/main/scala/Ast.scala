@@ -1,19 +1,19 @@
 package io.jaschdoc
 
+/**
+ * Grammar
+ *
+ * Exp   ::= Atom | UnOp Exp | Exp BinOp Exp | (Exp)
+ * Atom  ::= [a-z]
+ * UnOp  ::= not
+ * BinOp ::= and | or | ->
+ *
+ * Operator precedence (from strongest to weakest)
+ * 1. UnOp binds the strongest
+ * 2. and | or
+ * 3. -> (implication)
+ */
 object Ast {
-  /**
-   * Grammar
-   *
-   * Exp   ::= Atom | UnOp Exp | Exp BinOp Exp | (Exp)
-   * Atom  ::= [a-z]
-   * UnOp  ::= not
-   * BinOp ::= and | or | ->
-   *
-   * Operator precedence (from strongest to weakest)
-   * 1. UnOp binds the strongest
-   * 2. and | or
-   * 3. -> (implication)
-   */
 
   type Id = String
 
