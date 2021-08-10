@@ -64,7 +64,7 @@ object Commands {
               + "  " + util.PrintableBoolean.from(t._2) + "    |")
             .mkString("\n")
 
-          s"$header\n${"-".repeat(header.length)}\n$body"
+          s"Parsed as: ${Unparser.unparse(exp)}\n\n$header\n${"-".repeat(header.length)}\n$body"
       }
     }
   }
