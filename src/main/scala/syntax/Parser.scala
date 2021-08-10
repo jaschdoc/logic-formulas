@@ -5,10 +5,10 @@ import Ast._
 import syntax.Tokens._
 
 import scala.util.Try
-import scala.util.parsing.combinator.Parsers
+import scala.util.parsing.combinator.PackratParsers
 import scala.util.parsing.input.{NoPosition, Position, Reader}
 
-object Parser extends Parsers {
+object Parser extends PackratParsers {
   // FIXME: Implication is currently left-associative, but SHOULD BE right-associative
 
   override type Elem = LogicToken
