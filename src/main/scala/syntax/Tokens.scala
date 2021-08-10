@@ -1,9 +1,11 @@
 package io.jaschdoc
 package syntax
 
+import scala.util.parsing.input.Positional
+
 object Tokens {
 
-  sealed trait LogicToken
+  sealed trait LogicToken extends Positional
 
   case class IDENTIFIER(str: String) extends LogicToken
 

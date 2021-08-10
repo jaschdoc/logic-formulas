@@ -35,20 +35,32 @@ object Lexer extends RegexParsers {
       )
     )
 
-  // TODO: add positioned: positioned { ... impl }
-  private def identifier: Parser[IDENTIFIER] = {
+  private def identifier: Parser[IDENTIFIER] = positioned {
     "[a-zA-Z_][a-zA-Z0-9_]*".r ^^ { case str if !keywords.contains(str) => IDENTIFIER(str) }
   }
 
-  private def leftParen: Parser[LEFT_PAREN.type] = "(" ^^ { _ => LEFT_PAREN }
+  private def leftParen: Parser[LEFT_PAREN.type] = positioned {
+    "(" ^^ { _ => LEFT_PAREN }
+  }
 
-  private def rightParen: Parser[RIGHT_PAREN.type] = ")" ^^ { _ => RIGHT_PAREN }
+  private def rightParen: Parser[RIGHT_PAREN.type] = positioned {
+    ")" ^^ { _ => RIGHT_PAREN }
+  }
 
-  private def not: Parser[NOT.type] = "not" ^^ { _ => NOT }
+  private def not: Parser[NOT.type] = positioned {
+    "not" ^^ { _ => NOT }
+  }
 
-  private def and: Parser[AND.type] = "and" ^^ { _ => AND }
+  private def and: Parser[AND.type] = positioned {
+    "and" ^^ { _ => AND }
+  }
 
-  private def or: Parser[OR.type] = "or" ^^ { _ => OR }
+  private def or: Parser[OR.type] = positioned {
+    "or" ^^ { _ => OR }
+  }
 
-  private def arrow: Parser[ARROW.type] = "->" ^^ { _ => ARROW }
+  private def arrow: Parser[ARROW.type] = positioned {
+    "->" ^^ { _ => ARROW }
+  }
+
 }
