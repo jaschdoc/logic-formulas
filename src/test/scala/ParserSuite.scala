@@ -195,7 +195,7 @@ class ParserSuite extends UnitSpec {
     }
   }
 
-  it should "respect right associativity of the IMPLICATION operator" in {
+  ignore should "respect right associativity of the IMPLICATION operator" in {
     // p -> p -> p -> q == p -> (p -> (p -> (q)))
     val expectedAST =
       BinOpExp(
