@@ -6,23 +6,25 @@ import scala.language.implicitConversions
 
 trait Formula {
 
-  implicit def fromString(p: String): Exp = AtomExp(p)
+  type Formula = Exp
 
-  def not(e: Exp): Exp = UnOpExp(NotUnOp, e)
+  implicit def fromString(p: String): Formula = AtomExp(p)
 
-  sealed trait ProtoExp {
-    def and(right: Exp): Exp
+  def not(e: Formula): Formula = UnOpExp(NotUnOp, e)
 
-    def or(right: Exp): Exp
+  sealed trait ProtoFormula {
+    def and(right: Formula): Formula
 
-    def ~>(right: Exp): Exp
+    def or(right: Formula): Formula
+
+    def ~>(right: Formula): Formula
   }
 
-  implicit class ProtoString(string: String) extends ProtoExp {
-    override def and(right: Exp): Exp = BinOpExp(string, AndBinOp, right)
+  implicit class ProtoString(string: String) extends ProtoFormula {
+    override def and(right: Formula): Formula = BinOpExp(string, AndBinOp, right)
 
-    override def or(right: Exp): Exp = BinOpExp(string, OrBinOp, right)
+    override def or(right: Formula): Formula = BinOpExp(string, OrBinOp, right)
 
-    override def ~>(right: Exp): Exp = BinOpExp(string, ImplicationBinOp, right)
+    override def ~>(right: Formula): Formula = BinOpExp(string, ImplicationBinOp, right)
   }
 }
