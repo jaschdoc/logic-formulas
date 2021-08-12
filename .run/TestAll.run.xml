@@ -10,6 +10,7 @@
     <option name="classBuf">
       <list>
         <option value="io.jaschdoc.ParserSuite" />
+        <option value="io.jaschdoc.ScalaDSLSuite" />
         <option value="io.jaschdoc.InterpreterSuite" />
       </list>
     </option>
