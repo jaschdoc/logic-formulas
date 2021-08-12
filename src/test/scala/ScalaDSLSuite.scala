@@ -30,4 +30,26 @@ class ScalaDSLSuite extends UnitSpec with Formula {
     not("p") shouldBe expectedAst
   }
 
+  it should "allow for composition of formulas" in {
+    val formula = "p" and "q" or not ("r") ~> "q"
+    val expectedAst =
+      BinOpExp(
+        BinOpExp(
+          BinOpExp(
+            AtomExp("p"),
+            AndBinOp,
+            AtomExp("q")
+          ),
+          OrBinOp,
+          UnOpExp(
+            NotUnOp,
+            AtomExp("r")
+          )
+        ),
+        ImplicationBinOp,
+        AtomExp("q"))
+
+    formula shouldBe expectedAst
+  }
+
 }

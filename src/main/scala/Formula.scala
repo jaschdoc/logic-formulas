@@ -20,11 +20,19 @@ trait Formula {
     def ~>(right: Formula): Formula
   }
 
-  implicit class ProtoString(string: String) extends ProtoFormula {
-    override def and(right: Formula): Formula = BinOpExp(string, AndBinOp, right)
+  implicit class ProtoString(left: String) extends ProtoFormula {
+    override def and(right: Formula): Formula = BinOpExp(left, AndBinOp, right)
 
-    override def or(right: Formula): Formula = BinOpExp(string, OrBinOp, right)
+    override def or(right: Formula): Formula = BinOpExp(left, OrBinOp, right)
 
-    override def ~>(right: Formula): Formula = BinOpExp(string, ImplicationBinOp, right)
+    override def ~>(right: Formula): Formula = BinOpExp(left, ImplicationBinOp, right)
+  }
+
+  implicit class ProtoExp(left: Exp) extends ProtoFormula {
+    override def and(right: Formula): Formula = BinOpExp(left, AndBinOp, right)
+
+    override def or(right: Formula): Formula = BinOpExp(left, OrBinOp, right)
+
+    override def ~>(right: Formula): Formula = BinOpExp(left, ImplicationBinOp, right)
   }
 }
