@@ -1,8 +1,8 @@
 package io.jaschdoc
-package syntax
+package parser
 
 import Ast._
-import syntax.Tokens._
+import parser.Tokens._
 
 import scala.util.Try
 import scala.util.parsing.combinator.Parsers

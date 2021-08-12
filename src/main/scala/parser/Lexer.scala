@@ -1,7 +1,7 @@
 package io.jaschdoc
-package syntax
+package parser
 
-import syntax.Tokens._
+import parser.Tokens._
 
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.RegexParsers

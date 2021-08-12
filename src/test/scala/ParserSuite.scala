@@ -1,7 +1,7 @@
 package io.jaschdoc
 
 import Ast._
-import syntax.{Parser, SyntaxError}
+import parser.{Parser, SyntaxError}
 
 class ParserSuite extends UnitSpec {
   // TODO: Refactor tests to use natural language - see InterpreterSuite

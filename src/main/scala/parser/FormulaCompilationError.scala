@@ -1,4 +1,4 @@
 package io.jaschdoc
-package syntax
+package parser
 
 class FormulaCompilationError(msg: String) extends FormulaError(msg)

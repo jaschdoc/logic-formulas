@@ -1,6 +1,6 @@
 package io.jaschdoc
 
-import syntax.Parser
+import parser.Parser
 
 class InterpreterSuite extends UnitSpec {
 

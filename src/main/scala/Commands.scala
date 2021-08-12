@@ -1,6 +1,6 @@
 package io.jaschdoc
 
-import syntax.Parser
+import parser.Parser
 
 import scala.io.StdIn
 import scala.util.{Failure, Success, Try}
