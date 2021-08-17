@@ -21,4 +21,4 @@ A formula looks like this:
 p and q -> r or a
 ```
 All binary operators are currently left-associative, however, the '->' operator should be right-associative. There is currently [a fix in progress](https://github.com/jaschdoc/logic-formulas/issues/1) for this.
-See the [formal grammar](src/main/scala/Ast.scala) for more info.
+See the [formal grammar](https://github.com/jaschdoc/logic-formulas/blob/dbd1b6a5d48223b1e6e52fe4f1e342a5c52e90c6/src/main/scala/Ast.scala#L24) for more info.
