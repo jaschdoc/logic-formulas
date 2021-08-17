@@ -1,5 +1,5 @@
 # Formulae
-Handwritten tool to make it easier for me to work with logic formulas.
+Tool to make it easier for me to work with logic formulas.
 
 ## Getting Started
 ### IntelliJ
