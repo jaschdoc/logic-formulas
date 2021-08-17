@@ -2,6 +2,8 @@
 Simple logic formula assistance.
 
 ## Getting Started
+First, clone it to your local machine. You can choose to fork it before cloning, such that you own a copy, you can make changes to. 
+
 ### IntelliJ
 There are Main and Test run configurations included for IntelliJ, so simply select the correct run configuration and run the program!
 If you plan on contributing to the project, you should use the sbt method explained below.
