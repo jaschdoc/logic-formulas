@@ -1,5 +1,5 @@
 # Formulae
-Tool to make it easier for me to work with logic formulas.
+Simple logic formula assistance.
 
 ## Getting Started
 ### IntelliJ
