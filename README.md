@@ -1,4 +1,4 @@
-[![Tests](https://github.com/jaschdoc/logic-formulas/actions/workflows/scala.yml/badge.svg)](https://github.com/jaschdoc/logic-formulas/actions/workflows/scala.yml)
+[![Tests](https://github.com/jaschdoc/logic-formulas/actions/workflows/scala.yml/badge.svg?branch=main)](https://github.com/jaschdoc/logic-formulas/actions/workflows/scala.yml)
 # Formulae
 Simple logic formula assistance.
 
