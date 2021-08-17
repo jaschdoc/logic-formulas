@@ -11,6 +11,4 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest-flatspec" % "3.2.9" % "test"
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.9"
 
-resolvers += "Artima Maven Repository" at "https://repo.artima.com/releases"
-
 Test / logBuffered := false
