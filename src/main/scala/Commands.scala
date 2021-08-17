@@ -63,7 +63,7 @@ object Commands {
   case object AllCombinations extends Command {
     override def toCommand: String = "solve"
 
-    override def aliases: Set[String] = Set("solve-all, sat")
+    override def aliases: Set[String] = Set("solve-all", "sat")
 
     override def description: String = "Checks all combinations of truth values for all variables in a formula (SAT-solver)."
 
