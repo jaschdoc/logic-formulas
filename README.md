@@ -7,6 +7,7 @@ There are Main and Test run configurations included for IntelliJ, so simply sele
 If you plan on contributing to the project, you should use the sbt method explained below.
 
 ### sbt
+This is the preferred method of running and testing the program.
 1. [Install sbt](https://www.scala-sbt.org/1.x/docs/Setup.html)
 2. [Install SuperSafe](https://www.scalatest.org/supersafe#installation)
 3. Run the program with either `sbt run` or `sbt test` in the terminal.
