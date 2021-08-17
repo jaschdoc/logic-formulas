@@ -3,7 +3,7 @@ Handwritten tool to make it easier for me to work with logic formulas.
 
 ## Getting Started
 ### IntelliJ
-There are Test and Main run configurations included for IntelliJ, so simply select the correct run configuration and run the program!
+There are Main and Test run configurations included for IntelliJ, so simply select the correct run configuration and run the program!
 If you plan on contributing to the project, you should use the sbt method explained below.
 
 ### sbt
