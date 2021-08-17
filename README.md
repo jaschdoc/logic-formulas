@@ -12,7 +12,7 @@ If you plan on contributing to the project, you should use the sbt method explai
 3. Run the program with either `sbt run` or `sbt test` in the terminal.
 
 ### Syntax
-A formula looks like
+A formula looks like this:
 ```
 p and q -> r or a
 ```
